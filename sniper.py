@@ -51,7 +51,7 @@ def check_jobs():
         published_time = datetime.datetime(*entry.published_parsed[:6])
         minutes_old = (now - published_time).total_seconds() / 60
         
-        if minutes_old < 20:
+        if minutes_old < 2000000:
             desc = entry.description.lower()
             title = entry.title
             
