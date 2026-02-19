@@ -37,7 +37,17 @@ def send_discord_alert(title, link, date):
 
 def check_jobs():
     print("👀 Sniper woke up! Checking Upwork RSS...")
-    send_discord_alert("🚨 TEST SUCCESSFUL!", "https://google.com", "Right Now!")
+    
+    # --- DIAGNOSTIC TEST ---
+    print(f"🔍 Checking Key: {bool(WEBHOOK_URL)}")
+    if WEBHOOK_URL:
+        response = requests.post(WEBHOOK_URL, json={"content": "🚨 SYSTEM DIAGNOSTIC TEST!"})
+        print(f"📡 Discord Status Code: {response.status_code}")
+        print(f"📡 Discord Error: {response.text}")
+    else:
+        print("❌ CRITICAL: The Secret Key is completely empty!")
+    # -----------------------
+
     now = datetime.datetime.utcnow()
     
     try:
