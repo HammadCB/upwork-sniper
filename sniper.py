@@ -11,7 +11,7 @@ WEBHOOK_URL = os.environ.get('DISCORD_WEBHOOK_URL')
 RSS_URL = "https://www.upwork.com/ab/feed/jobs/rss?q=web%20scraping+python&sort=recency&paging=0%3B10&api_params=1"
 
 # --- 🎯 FILTERS ---
-KEYWORDS = ['python', 'scraping', 'selenium', 'automation', 'bot', 'script', 'extraction','scrape','a']
+KEYWORDS = ['python', 'scraping', 'selenium', 'automation', 'bot', 'script', 'extraction']
 BAD_WORDS = ['expert', 'senior', 'java', 'php', 'wordpress', 'design', 'manager']
 
 def send_discord_alert(title, link, date):
@@ -37,17 +37,6 @@ def send_discord_alert(title, link, date):
 
 def check_jobs():
     print("👀 Sniper woke up! Checking Upwork RSS...")
-    
-    # --- DIAGNOSTIC TEST ---
-    print(f"🔍 Checking Key: {bool(WEBHOOK_URL)}")
-    if WEBHOOK_URL:
-        response = requests.post(WEBHOOK_URL, json={"content": "🚨 SYSTEM DIAGNOSTIC TEST!"})
-        print(f"📡 Discord Status Code: {response.status_code}")
-        print(f"📡 Discord Error: {response.text}")
-    else:
-        print("❌ CRITICAL: The Secret Key is completely empty!")
-    # -----------------------
-
     now = datetime.datetime.utcnow()
     
     try:
@@ -62,7 +51,7 @@ def check_jobs():
         published_time = datetime.datetime(*entry.published_parsed[:6])
         minutes_old = (now - published_time).total_seconds() / 60
         
-        if minutes_old < 2000000:
+        if minutes_old < 20:
             desc = entry.description.lower()
             title = entry.title
             
