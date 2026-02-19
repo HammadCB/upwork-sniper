@@ -56,6 +56,34 @@ def check_jobs():
         published_time = datetime.datetime(*entry.published_parsed[:6])
         minutes_old = (now - published_time).total_seconds() / 60
         
+        # INCREASED TO 60 MINUTES to catch more jobs
+        if minutes_old < 60: 
+            desc = entry.description.lower()
+            title = entry.title
+            
+            # Check keywords
+            if any(good in desc for good in KEYWORDS):
+                if not any(bad in desc for bad in BAD_WORDS):
+                    print(f"🎯 FOUND MATCH: {title}")
+                    send_discord_alert(title, entry.link, str(published_time))
+                    found_any = True
+                    time.sleep(1)
+
+    if not found_any:
+        print("💤 No new jobs found in the last 60 minutes.")
+    
+    try:
+        feed = feedparser.parse(RSS_URL)
+    except Exception as e:
+        print(f"❌ Error reading RSS feed: {e}")
+        return
+
+    found_any = False
+    
+    for entry in feed.entries:
+        published_time = datetime.datetime(*entry.published_parsed[:6])
+        minutes_old = (now - published_time).total_seconds() / 60
+        
         if minutes_old < 20:
             desc = entry.description.lower()
             title = entry.title
