@@ -37,6 +37,7 @@ def send_discord_alert(title, link, date):
 
 def check_jobs():
     print("👀 Sniper woke up! Checking Upwork RSS...")
+    send_discord_alert("🚨 TEST SUCCESSFUL!", "https://google.com", "Right Now!")
     now = datetime.datetime.utcnow()
     
     try:
