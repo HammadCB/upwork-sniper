@@ -11,7 +11,12 @@ WEBHOOK_URL = os.environ.get('DISCORD_WEBHOOK_URL')
 RSS_URL = "https://www.upwork.com/ab/feed/jobs/rss?q=web%20scraping+python&sort=recency&paging=0%3B10&api_params=1"
 
 # --- 🎯 FILTERS ---
-KEYWORDS = ['python', 'scraping', 'selenium', 'automation', 'bot', 'script', 'extraction']
+# --- 🎯 EXPANDED FILTERS ---
+KEYWORDS = [
+    'python', 'scraping', 'selenium', 'automation', 'bot', 'script', 'extraction',
+    'browser', 'crawler', 'playwright', 'requests', 'api', 'data mining',
+    'machine learning', 'ai', 'face recognition', 'neural network', 'odoo'
+]
 BAD_WORDS = ['expert', 'senior', 'java', 'php', 'wordpress', 'design', 'manager']
 
 def send_discord_alert(title, link, date):
